@@ -9,7 +9,18 @@
 
     <body>
         <div>
-            <h1>{% block myhdg %}Hello Team 1 {% endblock %}</h1>
+            {% if request.user.is_authenticated %}
+                <h1>{% block myhdg %}Hello {{ user.first_name }} {% endblock %}</h1>
+                <ul style="float: right">
+                    <li class="hbar1"><a href="/myapp/logout/">Logout</a></li>
+                </ul>
+             {% else %}
+                <ul style="float: right">
+                    <li class="hbar1"><a href="/myapp/login/">Login</a></li>
+                    <li class="hbar1"><a href="/myapp/register/">Register</a></li>
+                </ul>
+            {% endif %}
+
             {% block body_block %}*** {% endblock %}
         </div>
         <hr />

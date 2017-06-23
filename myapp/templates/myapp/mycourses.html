@@ -1,0 +1,18 @@
+{% extends 'myapp/base.html' %}
+{% block body_block %}
+      <div class="myClass">
+     {% if courselist %}
+        <h2>List of Courses you are registered in</h2>
+
+        <ol>
+            {% for course  in courselist %}
+                <!--<li> {{ course.title}} </li>-->
+                <li><a href="{% url 'myapp:detail' course.course_no %}">{{course.title }}</a>
+</li>
+            {% endfor %}
+        </ol>
+    {% else %}
+        <strong>You are not registered as an student</strong>
+    {% endif %}
+       </div>
+{% endblock %}
