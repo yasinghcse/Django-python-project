@@ -1,0 +1,23 @@
+{% extends 'myapp/base.html' %}
+{% block body_block %}
+    <div class="myClass">
+        {% if topiclist %}
+            <h3>Proposed Topics</h3>
+             <ol>
+                {% for topic  in topiclist %}
+                    <li>{{topic.subject}}</li>
+                {% endfor %}
+            </ol>
+        {% else %}
+            <strong>There are no proposed topics!</strong>
+        {% endif %}
+
+        <h3>You can add a new topic here</h3>
+        <form action="/myapp/addtopic/" method="post">
+            {% csrf_token %}
+            {{ form.as_p}}
+            <input type="submit" value="Submit" />
+        </form>
+
+    </div>
+{% endblock %}

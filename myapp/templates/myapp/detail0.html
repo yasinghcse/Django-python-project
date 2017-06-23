@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Course Listing APP</title>
+</head>
+
+ {% if course %}
+     <p> {{ course.title}} : {{ course.course_no}} : {{course.textbook.title }} </p>
+    {% else %}
+        <strong>Course number not valid</strong>
+    {% endif %}
+   <p><a href="{% url 'myapp:index' %}">Main Page (url namespacing)</a></p>
+<body>
+
+</body>
+</html>
