@@ -1,0 +1,16 @@
+{% extends 'myapp/base.html' %}
+{% block body_block %}
+    <div class="myClass">
+        <h3>Forget Password</h3>
+        <form method="post" action="/myapp/forget/" autocomplete="off">
+            {% csrf_token %}
+            <div class="form-group marb20 {% if forget_form.errors.email %}errorput{% endif %}">
+                <label>Username:</label>
+                <input type="text" id="username" name="username" value="{{ forget_form.username.value }}" placeholder="username" />
+                <label>Email:</label>
+                <input type="text" id="email" name="email" value="{{ forget_form.email.value }}" placeholder="email" />
+            </div>
+            <input class="btn btn-green" id="jsFindPwdBtn" type="submit" value="Submit" />
+        </form>
+    </div>
+{% endblock %}

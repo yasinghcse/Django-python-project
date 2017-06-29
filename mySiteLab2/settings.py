@@ -28,6 +28,9 @@ DEBUG = True
 ALLOWED_HOSTS = ['127.0.0.3','0.0.0.0']
 
 
+#LOGIN_URL setting - to redirect to login page
+LOGIN_URL='myapp/login'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -120,3 +123,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_USE_TLS = False
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = 'team531uwin@gmail.com'
+EMAIL_HOST_PASSWORD = 'test1234567890'
+DEFAULT_FROM_EMAIL = 'team531uwin@gmail.com'

@@ -1,14 +1,20 @@
 # Import necessary classes
 from django.db.models.functions.base import Coalesce
 from django.http import HttpResponse, response
-from myapp.models import Author, Book, Course, Topic, Student
-from myapp.forms import TopicForm, InterestForm, StudentForm
+from myapp.models import Author, Book, Course, Topic, Student, PageHitCount
+from myapp.forms import TopicForm, InterestForm, StudentForm, PageHitCountForm, ForgetPwdForm, ModifyPwdForm
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.views import View
+from django.contrib.auth.hashers import make_password
+from django.core.mail import send_mail
+import smtplib
+
+from datetime import datetime
 
 
 
@@ -31,9 +37,24 @@ from django.contrib.auth.decorators import login_required
 #   return response
 
 # new index function using templates
-def index(request):
-    courselist = Course.objects.all().order_by('title')[:10]
-    return render(request, 'myapp/index.html', {'courselist': courselist,'request.user':request.user })
+#def index(request):
+#    courselist = Course.objects.all().order_by('title')[:10]
+#    return render(request, 'myapp/index.html', {'courselist': courselist,'request.user':request.user })
+
+hitcount=1
+class IndexView(View):
+
+    def get(self,request):
+        #hitcount=int(request.COOKIES.get('visited',0))+1
+        global hitcount
+        courselist = Course.objects.all().order_by('title')[:10]
+        if  request.session.has_key('hitcount'):
+            print("no need to increment the counter")
+        else:
+            request.session['hitcount']=1
+            hitcount+=1
+
+        return render(request, 'myapp/index.html', {'courselist': courselist, 'request.user': request.user, 'hitcount':hitcount})
 
 
 #create view for about page
@@ -44,8 +65,12 @@ def index(request):
 #   return response
 
 # new about page using url namespacing
-def about(request):
-    return render(request, 'myapp/about.html', {'request.user':request.user})
+#def about(request):
+#    return render(request, 'myapp/about.html', {'request.user':request.user})
+class AboutView(View):
+    def get(self, request):
+        return render(request, 'myapp/about.html', {'request.user': request.user})
+
 
 #create view for detail page
 #def detail(request,course_no):
@@ -133,7 +158,6 @@ def user_logout(request):
     return HttpResponseRedirect(reverse(('myapp:index')))
 
 #MyCourses
-#@login_required
 def mycourses(request):
     if request.user.is_authenticated():
         student= Student.objects.filter(username=request.user)
@@ -144,3 +168,53 @@ def mycourses(request):
             return render(request, 'myapp/mycourses.html', {'request.user': request.user})
     else:
         return render(request, 'myapp/login.html', {'request.user': request.user})
+
+
+def ForgetPwdView(request):
+    if request.method == 'POST':
+        forget_form = ForgetPwdForm(request.POST)
+        if forget_form.is_valid():
+            username = request.POST.get("username", "")
+            email = request.POST.get("email", "")
+            u = Student.objects.filter(username=username, email=email)
+            print(u)
+            if u:
+                modify_form = ModifyPwdForm()
+                return render(request, "myapp/password_reset.html", {"modify_form": modify_form, "email": email, 'username':username})
+            else:
+                forget_form = ForgetPwdForm()
+                return render(request, "myapp/forgetpwd.html", {"forget_form": forget_form})
+        else:
+            forget_form = ForgetPwdForm()
+            return render(request, "myapp/forgetpwd.html", {"forget_form": forget_form})
+    else:
+        forget_form = ForgetPwdForm()
+        return render(request, "myapp/forgetpwd.html", {"forget_form": forget_form})
+
+
+def ModifyPwdView(request):
+    if request.method == 'POST':
+        modify_form = ModifyPwdForm(request.POST)
+        if modify_form.is_valid():
+            pwd1 = request.POST.get("password1", "")
+            pwd2 = request.POST.get("password2", "")
+            email = request.POST.get("email", "")
+            username = request.POST.get("username", "")
+            if pwd1 != pwd2:
+                return render(request, "myapp/password_reset.html", {"email": email, "msg": u"Please insert the same password."})
+            user = Student.objects.get(username=username,email=email)
+            user.password = make_password(pwd1)
+            user.save()
+
+            smtp = smtplib.SMTP('smtp.gmail.com:587')
+            smtp.starttls()
+            smtp.login('team531uwin@gmail.com', 'test1234567890')
+            resetMsg='Password is here.'+ pwd1
+            smtp.sendmail('team531uwin@gmail.com', email, resetMsg)
+            smtp.close()
+            return render(request, "myapp/login.html")
+        else:
+            return render(request, "myapp/login.html")
+    else:
+        modify_form = ModifyPwdForm()
+        return render(request, "myapp/password_reset.html", {"modify_form": modify_form})

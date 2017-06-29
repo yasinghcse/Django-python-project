@@ -1,0 +1,128 @@
+home,
+.header-content {
+	position: relative;
+    text-align: center;
+    padding: 8% 5% 8%;
+    width: 100%;
+}
+
+
+.square-center {
+	position: relative;
+	margin: auto;
+	overflow: auto;
+}
+.square-top {
+	float: left;
+	width: 25%;
+	position: relative;
+	margin-left: 6%;
+	color: white;
+	padding: 1% 1% 5%;
+}
+.square-top p{
+	position: relative;
+	font-size: 17px;
+	padding: 0 20px 0;
+}
+.square-down {
+	position: relative;
+	margin-top:50%;
+	width: 25%;
+	float: left;
+	margin-left: 6%;
+	color: white;
+}
+
+ footer {
+ 	margin-top:5% !important;
+ 	padding-bottom: 7% !important;
+ 	color: rgb(111, 113, 111) !important;
+ }
+#mid-about {
+	padding: 5% 0 5%;
+}
+#mid-about .glyphicon {
+	border: 4px solid rgb(40, 135, 252);
+	padding: 20% 20% 20%;
+	border-radius: 50%;
+	font-size: 450%;
+}
+#mid-about .glyphicon:hover {
+	background-color: rgb(40, 135, 252);
+	color: white;
+	transition: all 0.5s;
+}
+home .glyphicon {
+	margin-top: 2%;
+ 	color: rgb(255, 75, 0);
+ }
+home .glyphicon:hover {
+ 	color: silver;
+ }
+  .up-arrow{
+ 	color: silver !important;
+ }
+ .up-arrow:hover {
+ 	color: grey !important;
+ }
+
+ /* Home Style */
+#tf-register-home {
+	background: url(../img/slide2.jpg);
+	background-size: cover;
+	background-position: center;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	position: relative;
+	color: #cfcfcf;
+}
+
+#tf-home{
+	background: url(../img/head.jpg);
+	background-size: cover;
+	background-position: center;
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	color: #cfcfcf;
+}
+
+#tf-home .overlay, #tf-register-home .overlay{
+	background: -moz-linear-gradient(top,  rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.73) 17%, rgba(0,0,0,0.66) 35%, rgba(0,0,0,0.55) 62%, rgba(0,0,0,0.4) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.8)), color-stop(17%,rgba(0,0,0,0.73)), color-stop(35%,rgba(0,0,0,0.66)), color-stop(62%,rgba(0,0,0,0.55)), color-stop(100%,rgba(0,0,0,0.4))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(0,0,0,0.8) 0%,rgba(0,0,0,0.73) 17%,rgba(0,0,0,0.66) 35%,rgba(0,0,0,0.55) 62%,rgba(0,0,0,0.4) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(0,0,0,0.8) 0%,rgba(0,0,0,0.73) 17%,rgba(0,0,0,0.66) 35%,rgba(0,0,0,0.55) 62%,rgba(0,0,0,0.4) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(0,0,0,0.8) 0%,rgba(0,0,0,0.73) 17%,rgba(0,0,0,0.66) 35%,rgba(0,0,0,0.55) 62%,rgba(0,0,0,0.4) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(0,0,0,0.8) 0%,rgba(0,0,0,0.73) 17%,rgba(0,0,0,0.66) 35%,rgba(0,0,0,0.55) 62%,rgba(0,0,0,0.4) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cc000000', endColorstr='#66000000',GradientType=0 ); /* IE6-9 */
+	height: 250px;
+	background-attachment: fixed;
+}
+
+.content{
+	position: relative;
+	padding: 3% 0 0;
+}
+
+button.contactbtn {
+	background-color: rgb(255, 215, 0);
+	border: 1px solid rgb(255, 215, 0);
+	color: white;
+	border-radius: 0;
+	float: right;
+	padding: 10px 40px;
+}
+button.contactbtn:hover {
+	background-color: white;
+	color: rgb(255, 215, 0);
+	transition: all 0.5s;
+}
+
+.register-board {
+	background-color:rgba(255,255,255,0.8);
+	position: absolute;
+	margin-top: -300px;
+	/*padding-top: 3%;*/
+	padding: 3%;
+	z-index: 10;
+}

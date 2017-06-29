@@ -1,5 +1,5 @@
 from django import forms
-from myapp.models import Topic, Student
+from myapp.models import Topic, Student, PageHitCount
 
 class TopicForm(forms.ModelForm):
     class Meta:
@@ -17,4 +17,20 @@ class InterestForm(forms.Form):
 class StudentForm(forms.ModelForm):
     class Meta:
         model = Student
-        fields=['username','password','first_name','last_name','address', 'city','province','age','date_joined','is_active','email']
+        #fields=['username','password','first_name','last_name','address', 'city','province','age','date_joined','is_active','email']
+        fields = ['username', 'password', 'first_name', 'last_name', 'address', 'city', 'province', 'age', 'date_joined', 'is_active', 'email', 'stud_pic']
+
+
+#counter form -- not currently in use
+class PageHitCountForm(forms.ModelForm):
+    class Meta:
+        model= PageHitCount
+        fields = ['count']
+
+class ForgetPwdForm(forms.Form):
+    username = forms.CharField(max_length=200)
+    email = forms.EmailField(required=True)
+
+class ModifyPwdForm(forms.Form):
+    password1 = forms.CharField(required=True, min_length=6)
+    password2 = forms.CharField(required=True, min_length=6)
