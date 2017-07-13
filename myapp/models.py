@@ -78,3 +78,17 @@ class PageHitCount(models.Model):
     count= models.IntegerField(default=0)
     def __str__(self):
         return str(self.count)
+
+
+class City(models.Model):
+    name=models.CharField(max_length=100)
+    population=models.IntegerField()
+
+class Team(models.Model):
+    name=models.CharField(max_length=50)
+    sport=models.CharField(max_length=50)
+    city=models.ForeignKey(City)
+
+class Player(models.Model):
+    name=models.CharField(max_length=50)
+    teams= models.ManyToManyField(Team)
